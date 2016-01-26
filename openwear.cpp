@@ -10,9 +10,8 @@ String nestedCascadeName = "haarcascade_eye.xml";
 CascadeClassifier cascade, nestedCascade;
 Mat frame;
 CGlasses m_glasses;
-void detectAndDraw(Mat& img,
-	CascadeClassifier& cascade, CascadeClassifier& nestedCascade,
-	double scale);
+GLfloat glasses_x=0, glasses_y=0, glasses_scale=1.0f;
+void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& nestedCascade,double scale);
 void initCV()
 {
 	if (!cascade.load(cascadeName))
@@ -53,7 +52,7 @@ void initGL()
 }
 void DrawVideo()
 {
-	glTranslatef(0.0f, 0.0f, -1.8f);
+	glTranslatef(0.0f, 0.0f, -2.0f);
 	flip(frame, frame,0);
 	cvtColor(frame, frame, CV_RGB2BGR);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3,frame.cols, frame.rows, 0, GL_RGB, GL_UNSIGNED_BYTE, frame.data);
@@ -75,9 +74,13 @@ void onDraw(void* param)
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	glPushMatrix();
-	glTranslatef(0.0f, 0.0f, -1.0f);
+//	cout << glasses_x<< "," << glasses_y << endl;
+	glTranslatef((glasses_x - 320)/320.0f, (280-glasses_y)/240.0f, -3.0f+glasses_scale*0.01f);
+	cout << glasses_scale<< endl;
+//	glTranslatef((glasses_x - 320) / 320.0f, (280 - glasses_y) / 240.0f, -1.6f-glasses_scale/128.0);
+//	glTranslatef(0.0f, 0.0f, -1.6f);
 //	glRotatef(30, 0, 1, 0);
-	glScalef(0.2, 0.2, 0.2);
+	glScalef(0.3, 0.3, 0.3);
 	m_glasses.Draw();
 	glPopMatrix();
 	glPushMatrix();
@@ -139,7 +142,7 @@ void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& neste
 		,
 		Size(30, 30));
 	t = (double)cvGetTickCount() - t;//相减为算法执行的时间
-	printf("detection time = %g ms\n", t / ((double)cvGetTickFrequency()*1000.));
+//	printf("detection time = %g ms\n", t / ((double)cvGetTickFrequency()*1000.));
 	for (auto r = faces.begin(); r != faces.end(); r++, i++)
 	{
 		Mat smallImgROI;
@@ -150,6 +153,9 @@ void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& neste
 		center.x = cvRound((r->x + r->width*0.5)*scale);//还原成原来的大小
 		center.y = cvRound((r->y + r->height*0.5)*scale);
 		radius = cvRound((r->width + r->height)*0.25*scale);
+		glasses_x = center.x;
+		glasses_y = center.y;
+		glasses_scale = radius;
 		circle(img, center, radius, color, 3, 8, 0);
 		//检测人眼，在每幅人脸图上画出人眼
 		if (nestedCascade.empty())
