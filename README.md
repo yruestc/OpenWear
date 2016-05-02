@@ -1,6 +1,6 @@
 OpenWear
 
-基于OenCV和OpenGL的虚拟试戴
+基于OpenCV和OpenGL的虚拟试戴
 
 
 ![res](figures/openwear.png)

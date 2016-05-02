@@ -76,7 +76,7 @@ void onDraw(void* param)
 	glPushMatrix();
 //	cout << glasses_x<< "," << glasses_y << endl;
 	glTranslatef((glasses_x - 320)/320.0f, (280-glasses_y)/240.0f, -3.0f+glasses_scale*0.01f);
-	cout << glasses_scale<< endl;
+//	cout << glasses_scale<< endl;
 //	glTranslatef((glasses_x - 320) / 320.0f, (280 - glasses_y) / 240.0f, -1.6f-glasses_scale/128.0);
 //	glTranslatef(0.0f, 0.0f, -1.6f);
 //	glRotatef(30, 0, 1, 0);

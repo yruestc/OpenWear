@@ -6,7 +6,7 @@
 #include "mropencv.h"
 const char *WINDOW_NAME = "Display Window";
 const char *OUTPUT_FILE = "output.avi";
-const bool output_flag = false;
+const bool output_flag = true;
 const char *OUTPUT_FILE1 = "values.csv";
 std::ofstream filestream;
 
@@ -27,29 +27,29 @@ void DrawFace(IplImage *img, Features &f, bool col = true) {
   radius = cvRound(f.face_size*0.5);
   
   if(col) {
-//    cvCircle( img, f.face_position, radius, colors[0], 3, 8, 0 ); // draw face
-//
-//    // draw lips
-//    cvCircle(img, cvPoint(f.lip_positions[0].x,f.lip_positions[0].y), 1, colors[1], 3, 8, 0);
-//    cvCircle(img, cvPoint(f.lip_positions[1].x,f.lip_positions[1].y), 1, colors[1], 3, 8, 0);
-//
-//  	// draw nostrils
-//  	cvCircle(img, cvPoint(f.nostril_positions[0].x,f.nostril_positions[0].y), 1, colors[0], 3, 8, 0);
-//  	cvCircle(img, cvPoint(f.nostril_positions[1].x,f.nostril_positions[1].y), 1, colors[0], 3, 8, 0);
-//
-//  	// draw nose bridge
-//  	cvCircle(img, cvPoint(f.nose_bridge.x,f.nose_bridge.y), 1, colors[2], 3, 8, 0);
-//
-//  	// draw pupils
-//  	cvCircle(img, cvPoint(f.pupils[0].x,f.pupils[0].y), 1, colors[3], 3, 8, 0);
-//  	cvCircle(img, cvPoint(f.pupils[1].x,f.pupils[1].y), 1, colors[3], 3, 8, 0);
-//
+   cvCircle( img, f.face_position, radius, colors[0], 3, 8, 0 ); // draw face
+
+   // draw lips
+   cvCircle(img, cvPoint(f.lip_positions[0].x,f.lip_positions[0].y), 1, colors[1], 3, 8, 0);
+   cvCircle(img, cvPoint(f.lip_positions[1].x,f.lip_positions[1].y), 1, colors[1], 3, 8, 0);
+
+ 	// draw nostrils
+ 	cvCircle(img, cvPoint(f.nostril_positions[0].x,f.nostril_positions[0].y), 1, colors[0], 3, 8, 0);
+ 	cvCircle(img, cvPoint(f.nostril_positions[1].x,f.nostril_positions[1].y), 1, colors[0], 3, 8, 0);
+
+ 	// draw nose bridge
+ 	cvCircle(img, cvPoint(f.nose_bridge.x,f.nose_bridge.y), 1, colors[2], 3, 8, 0);
+
+ 	// draw pupils
+ 	cvCircle(img, cvPoint(f.pupils[0].x,f.pupils[0].y), 1, colors[3], 3, 8, 0);
+ 	cvCircle(img, cvPoint(f.pupils[1].x,f.pupils[1].y), 1, colors[3], 3, 8, 0);
+
   	// draw eyebrow ends
   	cvCircle(img, cvPoint(f.eyebrow_ends[0].x,f.eyebrow_ends[0].y), 1, colors[1], 3, 8, 0);
   	cvCircle(img, cvPoint(f.eyebrow_ends[1].x,f.eyebrow_ends[1].y), 1, colors[1], 3, 8, 0);
 	  
-	cvEllipse(img,f.centers[0],f.sizes[0],f.theta*180/3.14,0,360,cvScalar(0,0,0),4,8,0);
-	  cvEllipse(img,f.centers[1],f.sizes[1],f.theta*180/3.14,0,360,cvScalar(0,0,0),4,8,0);
+// 	cvEllipse(img,f.centers[0],f.sizes[0],f.theta*180/3.14,0,360,cvScalar(0,0,0),4,8,0);
+// 	  cvEllipse(img,f.centers[1],f.sizes[1],f.theta*180/3.14,0,360,cvScalar(0,0,0),4,8,0);
 	  
 	  
   } else {    
@@ -125,7 +125,7 @@ filestream.open(OUTPUT_FILE1);
 
   CvVideoWriter* vid_writer;
   if (output_flag) {
-    vid_writer = cvCreateVideoWriter("/Users/ankit/Courses/CS223B/project/vgrp/temp.avi", CV_FOURCC('D', 'I', 'V', 'X'), 15,  cvSize(480, 360), 1);
+    vid_writer = cvCreateVideoWriter("result.avi", CV_FOURCC('D', 'I', 'V', 'X'), 25,  cvSize(640, 480));
   }
     int frameno = 1;
 
