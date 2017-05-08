@@ -122,18 +122,18 @@ void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& neste
 		CV_RGB(255, 128, 0),
 		CV_RGB(255, 255, 0),
 		CV_RGB(255, 0, 0),
-		CV_RGB(255, 0, 255) };//ÓÃ²»Í¬µÄÑÕÉ«±íÊ¾²»Í¬µÄÈËÁ³
+		CV_RGB(255, 0, 255) };//ç”¨ä¸åŒçš„é¢œè‰²è¡¨ç¤ºä¸åŒçš„äººè„¸
 
-	Mat gray, smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);//½«Í¼Æ¬ËõĞ¡£¬¼Ó¿ì¼ì²âËÙ¶È
-	cvtColor(img, gray, CV_BGR2GRAY);//ÒòÎªÓÃµÄÊÇÀàhaarÌØÕ÷£¬ËùÒÔ¶¼ÊÇ»ùÓÚ»Ò¶ÈÍ¼ÏñµÄ£¬ÕâÀïÒª×ª»»³É»Ò¶ÈÍ¼Ïñ
-	resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR);//½«³ß´çËõĞ¡µ½1/scale,ÓÃÏßĞÔ²åÖµ
-	equalizeHist(smallImg, smallImg);//Ö±·½Í¼¾ùºâ
-	t = (double)cvGetTickCount();//ÓÃÀ´¼ÆËãËã·¨Ö´ĞĞÊ±¼ä
-	//¼ì²âÈËÁ³
-	//detectMultiScaleº¯ÊıÖĞsmallImg±íÊ¾µÄÊÇÒª¼ì²âµÄÊäÈëÍ¼ÏñÎªsmallImg£¬faces±íÊ¾¼ì²âµ½µÄÈËÁ³Ä¿±êĞòÁĞ£¬1.1±íÊ¾
-	//Ã¿´ÎÍ¼Ïñ³ß´ç¼õĞ¡µÄ±ÈÀıÎª1.1£¬2±íÊ¾Ã¿Ò»¸öÄ¿±êÖÁÉÙÒª±»¼ì²âµ½3´Î²ÅËãÊÇÕæµÄÄ¿±ê(ÒòÎªÖÜÎ§µÄÏñËØºÍ²»Í¬µÄ´°¿Ú´ó
-	//Ğ¡¶¼¿ÉÒÔ¼ì²âµ½ÈËÁ³),CV_HAAR_SCALE_IMAGE±íÊ¾²»ÊÇËõ·Å·ÖÀàÆ÷À´¼ì²â£¬¶øÊÇËõ·ÅÍ¼Ïñ£¬Size(30, 30)ÎªÄ¿±êµÄ
-	//×îĞ¡×î´ó³ß´ç
+	Mat gray, smallImg(cvRound(img.rows / scale), cvRound(img.cols / scale), CV_8UC1);//å°†å›¾ç‰‡ç¼©å°ï¼ŒåŠ å¿«æ£€æµ‹é€Ÿåº¦
+	cvtColor(img, gray, CV_BGR2GRAY);//å› ä¸ºç”¨çš„æ˜¯ç±»haarç‰¹å¾ï¼Œæ‰€ä»¥éƒ½æ˜¯åŸºäºç°åº¦å›¾åƒçš„ï¼Œè¿™é‡Œè¦è½¬æ¢æˆç°åº¦å›¾åƒ
+	resize(gray, smallImg, smallImg.size(), 0, 0, INTER_LINEAR);//å°†å°ºå¯¸ç¼©å°åˆ°1/scale,ç”¨çº¿æ€§æ’å€¼
+	equalizeHist(smallImg, smallImg);//ç›´æ–¹å›¾å‡è¡¡
+	t = (double)cvGetTickCount();//ç”¨æ¥è®¡ç®—ç®—æ³•æ‰§è¡Œæ—¶é—´
+	//æ£€æµ‹äººè„¸
+	//detectMultiScaleå‡½æ•°ä¸­smallImgè¡¨ç¤ºçš„æ˜¯è¦æ£€æµ‹çš„è¾“å…¥å›¾åƒä¸ºsmallImgï¼Œfacesè¡¨ç¤ºæ£€æµ‹åˆ°çš„äººè„¸ç›®æ ‡åºåˆ—ï¼Œ1.1è¡¨ç¤º
+	//æ¯æ¬¡å›¾åƒå°ºå¯¸å‡å°çš„æ¯”ä¾‹ä¸º1.1ï¼Œ2è¡¨ç¤ºæ¯ä¸€ä¸ªç›®æ ‡è‡³å°‘è¦è¢«æ£€æµ‹åˆ°3æ¬¡æ‰ç®—æ˜¯çœŸçš„ç›®æ ‡(å› ä¸ºå‘¨å›´çš„åƒç´ å’Œä¸åŒçš„çª—å£å¤§
+	//å°éƒ½å¯ä»¥æ£€æµ‹åˆ°äººè„¸),CV_HAAR_SCALE_IMAGEè¡¨ç¤ºä¸æ˜¯ç¼©æ”¾åˆ†ç±»å™¨æ¥æ£€æµ‹ï¼Œè€Œæ˜¯ç¼©æ”¾å›¾åƒï¼ŒSize(30, 30)ä¸ºç›®æ ‡çš„
+	//æœ€å°æœ€å¤§å°ºå¯¸
 	cascade.detectMultiScale(smallImg, faces,
 		1.1, 2, 0
 		//|CV_HAAR_FIND_BIGGEST_OBJECT
@@ -141,7 +141,7 @@ void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& neste
 		| CV_HAAR_SCALE_IMAGE
 		,
 		Size(30, 30));
-	t = (double)cvGetTickCount() - t;//Ïà¼õÎªËã·¨Ö´ĞĞµÄÊ±¼ä
+	t = (double)cvGetTickCount() - t;//ç›¸å‡ä¸ºç®—æ³•æ‰§è¡Œçš„æ—¶é—´
 //	printf("detection time = %g ms\n", t / ((double)cvGetTickFrequency()*1000.));
 	for (auto r = faces.begin(); r != faces.end(); r++, i++)
 	{
@@ -150,18 +150,18 @@ void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& neste
 		Point center;
 		Scalar color = colors[i % 8];
 		int radius;
-		center.x = cvRound((r->x + r->width*0.5)*scale);//»¹Ô­³ÉÔ­À´µÄ´óĞ¡
+		center.x = cvRound((r->x + r->width*0.5)*scale);//è¿˜åŸæˆåŸæ¥çš„å¤§å°
 		center.y = cvRound((r->y + r->height*0.5)*scale);
 		radius = cvRound((r->width + r->height)*0.25*scale);
 		glasses_x = center.x;
 		glasses_y = center.y;
 		glasses_scale = radius;
 		circle(img, center, radius, color, 3, 8, 0);
-		//¼ì²âÈËÑÛ£¬ÔÚÃ¿·ùÈËÁ³Í¼ÉÏ»­³öÈËÑÛ
+		//æ£€æµ‹äººçœ¼ï¼Œåœ¨æ¯å¹…äººè„¸å›¾ä¸Šç”»å‡ºäººçœ¼
 		if (nestedCascade.empty())
 			continue;
 		smallImgROI = smallImg(*r);
-		//ºÍÉÏÃæµÄº¯Êı¹¦ÄÜÒ»Ñù
+		//å’Œä¸Šé¢çš„å‡½æ•°åŠŸèƒ½ä¸€æ ·
 		nestedCascade.detectMultiScale(smallImgROI, nestedObjects,
 			1.1, 2, 0
 			//|CV_HAAR_FIND_BIGGEST_OBJECT
@@ -175,8 +175,8 @@ void detectAndDraw(Mat& img,CascadeClassifier& cascade, CascadeClassifier& neste
 			center.x = cvRound((r->x + nr->x + nr->width*0.5)*scale);
 			center.y = cvRound((r->y + nr->y + nr->height*0.5)*scale);
 			radius = cvRound((nr->width + nr->height)*0.25*scale);
-			circle(img, center, radius, color, 3, 8, 0);//½«ÑÛ¾¦Ò²»­³öÀ´£¬ºÍ¶ÔÓ¦ÈËÁ³µÄÍ¼ĞÎÊÇÒ»ÑùµÄ
+			circle(img, center, radius, color, 3, 8, 0);//å°†çœ¼ç›ä¹Ÿç”»å‡ºæ¥ï¼Œå’Œå¯¹åº”äººè„¸çš„å›¾å½¢æ˜¯ä¸€æ ·çš„
 		}
 	}
-	cv::imshow("detected eyes", img);
+	cv::imshow("detected eyes", img);//åªæ˜¯è¾“å‡ºäººçš„çœ¼ç›
 }
